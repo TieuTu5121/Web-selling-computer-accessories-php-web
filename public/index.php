@@ -27,7 +27,7 @@ use Bramus\Router\Router as Router;
 
 $router = new Router();
 
-require(ROOT_DIR . '/routes/books.php');
+require(ROOT_DIR . '/routes/web.php');
 require(ROOT_DIR . '/routes/errors.php');
 
 $router->run();
