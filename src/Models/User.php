@@ -17,52 +17,48 @@ class User
         $this->fill($data);
     }
 
-    public static function all(): array
-    {
-        $users = [];
-        $query = PDO()->prepare('select * from users');
-        $query->execute();
-        while($row = $query->fetch()) {
-            $user = new User();
-            $user->fillFromDb($row);
-            $users[] = $user;
-        }
-        return $users;
-    }
     public function save() 
-    {
-        $result = false;
-        if($this->id >=0) {
-            $query = PDO()->prepare('update users set name = :name, email = :email,
-            phone = :phone,address = :address,gender = :gender ,password = :password  where id = :id');
-        
-            $result = $query->execute([
-                'id' => $this->id,
+{
+    $result = false;
+    if($this->id >=0) {
+        $query = PDO()->prepare('update users set name = :name, email = :email,
+        phone = :phone,address = :address,gender = :gender ,password = :password  where id = :id');
+    
+        // Hash the password
+        $hashed_password = md5($this->password);
+
+        $result = $query->execute([
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'gender'  => $this->gender,
+            'password' => $hashed_password // Use hashed password
+        ]);
+    } else {
+        $query = PDO()->prepare(
+            'insert into users (name, email, phone, address, gender , password)
+                        values (:name, :email, :phone, :address, :gender, :password)');
+
+        // Hash the password
+        $hashed_password = md5($this->password);
+
+        $result = $query->execute([
                 'name' => $this->name,
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'address' => $this->address,
-                'gender'  => $this->gender,
-                'password' => $this->password
-            ]);
-        } else {
-            $query = PDO()->prepare(
-                'insert into users (name, email, phone, address, gender , password)
-                            values (:name, :email, :phone, :address, :gender, :password)');
-            $result = $query->execute([
-                    'name' => $this->name,
-                    'email' => $this->email,
-                    'phone' => $this->phone,
-                    'address' => $this->address,
-                    'gender' => $this->gender,
-                    'password' => $this->password
-            ]);
-            if ($result) {
-                $this->id = PDO()->lastInsertId();
-            }
+                'gender' => $this->gender,
+                'password' => $hashed_password // Use hashed password
+        ]);
+        if ($result) {
+            $this->id = PDO()->lastInsertId();
         }
-        return $result;
     }
+    return $result;
+}
+
     public function delete() 
     {
         $query = PDO()->prepare('delete from users where id = :id');
