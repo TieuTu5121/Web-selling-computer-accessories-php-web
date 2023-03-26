@@ -77,6 +77,7 @@
         }
         return null;
     }
+    
     protected function fillFromDb(array $row)
     {
         $this->id = $row['id'];

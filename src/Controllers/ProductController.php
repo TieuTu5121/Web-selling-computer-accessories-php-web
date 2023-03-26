@@ -12,9 +12,14 @@ class ProductController
             'products' => Product::all()
         ]);
     }
-    public function show()
+    public function detail($id)
     {
+
         
+        render_view('detail', [
+            'products' => Product::all(),
+            'product' => Product::findById($id)
+        ]);
     }
 
 }

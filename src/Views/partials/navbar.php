@@ -11,7 +11,11 @@
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
 
                     <?php foreach ($products as $item): ?>
-                    <a href="" class="dropdown-item"><?= $item->category ?></a>
+                        <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown"><?= $item->category ?> <i
+                                        class="fa fa-angle-down float-right mt-1"></i></a>
+                                
+                            </div>
                     <?php endforeach ?>
 
                 </div>
@@ -28,7 +32,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="" class="nav-item nav-link active">Home</a>
+                        <a href="<?= BASEURL ?>" class="nav-item nav-link active">Home</a>
 
 
                         <a href="

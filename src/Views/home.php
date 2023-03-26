@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>NT Shopper</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Favicon -->
-    <link href="<?= BASEURL; ?>img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="<?= BASEURL; ?>lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?= BASEURL; ?>css/style.css" rel="stylesheet">
-</head>
+<?php define('TITLE', 'NT Shopper'); 
+    include('partials/header.php')
+?>
 
 <body>
 
@@ -47,13 +22,13 @@
 
     <!-- Categories End -->
 
-    <div class="row ">
+    <!-- <div class="row ">
         <div class="d-inline-flex" style="margin-left:40px">
             <p class="m-0"><a href="">Home</a></p>
             <p class="m-0 px-2">/</p>
             <p class="m-0">Shop</p>
         </div>
-    </div>
+    </div> -->
     <!-- Page Header End -->
 
 
@@ -144,11 +119,11 @@
                                 <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                     <h6 class="text-truncate mb-3"><?= $item->name ?></h6>
                                     <div class="d-flex justify-content-center">
-                                        <h6><?= $item->price ?></h6>                                   
+                                        <h6>₫<?= $item->price ?></h6>                                   
                                     </div>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between bg-light border">
-                                    <a href="{{ route('client.products.show', $item->id) }}"
+                                    <a href="/product/<?= $item->id ?>"
                                         class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
                                         Detail</a>
                                     
