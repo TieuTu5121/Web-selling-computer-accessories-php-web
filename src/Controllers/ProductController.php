@@ -12,4 +12,9 @@ class ProductController
             'products' => Product::all()
         ]);
     }
+    public function show()
+    {
+        
+    }
+
 }

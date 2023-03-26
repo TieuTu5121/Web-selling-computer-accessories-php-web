@@ -1,12 +1,14 @@
 <?php
-
-define('ROOT_DIR', realpath(dirname(__DIR__)));
+define('BASEURL', 'http://localhost:8080/');
+define('ROOT_DIR', dirname(dirname(__FILE__)));
 define('VIEWS_DIR', ROOT_DIR . '/src/views');
+
 
 session_start();
 
 require_once ROOT_DIR . '/vendor/autoload.php';
 require_once ROOT_DIR . '/src/functions.php';
+
 
 try {
 	$PDO = (new App\PDOFactory())->create([
