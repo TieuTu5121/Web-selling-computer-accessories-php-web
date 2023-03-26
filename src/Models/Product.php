@@ -4,9 +4,11 @@
  class Product
  {
     public int $id = -1;
+    public string $image;
     public string $name;
     public string $description;
     public int $price;
+    public int $quantity;
     public string $category;
     public function __construct(array $data = [])
     {
@@ -28,24 +30,28 @@
     {
         $result = false;
         if($this->id >=0) {
-            $query = PDO()->prepare('update products set name = :name, description = :description,
-            price = :price, category = :category where id = :id');
+            $query = PDO()->prepare('update products set image = :image, name = :name, description = :description,
+            price = :price, quantity = :quantity, category = :category where id = :id');
         
             $result = $query->execute([
                 'id' => $this->id,
+                'image' => $this->image,
                 'name' => $this->name,
                 'description' => $this->description,
                 'price' => $this->price,
+                'quantity' => $this->quantity,
                 'category' => $this->category
             ]);
         } else {
             $query = PDO()->prepare(
-                'insert into products (name, description, price, category)
-                values (:name, :description, :price, :category)');
+                'insert into products (image, name, description, price, quantity, category)
+                values (:image, :name, :description, :price, :quantity, :category)');
             $result = $query->execute([
+                    'image' => $this->image,
                     'name' => $this->name,
                     'description' => $this->description,
                     'price' => $this->price,
+                    'quantity' => $this->quantity,
                     'category' => $this->category
             ]);
             if ($result) {
@@ -74,18 +80,22 @@
     protected function fillFromDb(array $row)
     {
         $this->id = $row['id'];
+        $this->image = $row['image'];
         $this->name = $row['name'];
         $this->description = $row['description'];
         $this->price = $row['price'];
+        $this->quantity = $row['quantity'];
         $this->category = $row['category'];
         return $this;
     }
 
     public function fill(array $data)
     {
+        $this->image = $data['image'] ?? '';
         $this->name = $data['name'] ?? '';
         $this->description = $data['description'] ?? '';
         $this->price = $data['price'] ?? 0;
+        $this->quantity = $data['quantity'] ?? 0;
         $this->category = $data['category'] ?? 0;
         return $this;
     }
