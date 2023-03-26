@@ -1,2 +1,4 @@
 <?php 
-$router->get('/', 'App\Controllers\ProductController@index');
+
+
+$router->get('/', 'App\Controllers\UserController@index');
