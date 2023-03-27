@@ -3,14 +3,37 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\User;
 use App\Models\CartDetail;
 
 class CartController extends BaseController
+
 {
+    protected $user;
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+    public function login(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $user = $this->user->where('email', $email)->where('password', $password);
+        if($user)
+        {
+            return render_view('cart', [
+                'product' => Product::all()]);
+                
+            
+        } else {
+            
+        }
+    }
     public function index()
     {
         render_view('cart', [
-            'carts' => Cart::all()
+            'carts' => Cart::detail(),
         ]);
     }
 
@@ -32,7 +55,9 @@ class CartController extends BaseController
     {
         $cart = new Cart($data);
         if ($cart->save()) {
-            header('Location: /cart/'.$cart->id);
+            render_view('cart', [
+                'cart' => Cart::detail(),
+            ]);
         } else {
             render_view('error', ['message' => 'Failed to create cart']);
         }

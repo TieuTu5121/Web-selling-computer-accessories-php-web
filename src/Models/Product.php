@@ -100,4 +100,16 @@
         $this->category = $data['category'] ?? 0;
         return $this;
     }
+    public static function where(string $column, $value): array
+    {
+        $users = [];
+        $query = PDO()->prepare("select * from products where $column = :value");
+        $query->execute(['value' => $value]);
+        while($row = $query->fetch()) {
+            $user = new Product();
+            $user->fillFromDb($row);
+            $users[] = $user;
+        }
+        return $users;
+    }
  }

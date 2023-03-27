@@ -40,25 +40,25 @@
                         " class="nav-link">Order</a>
 
                     </div>
-                    <!-- <div class="navbar-nav ml-auto py-0">
-                        @if (auth()->check())
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
+                    <div class="navbar-nav ml-auto py-0">
+                        <?php if ($user): ?>
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?= $user->name ?>
+                            
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Tài khoản của tôi</a>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <a href="/login" class="nav-item nav-link">Login</a>
+                            <a href="/register" class="nav-item nav-link">Register</a>
+                        <?php endif ?>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
-                                @csrf
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
-                            <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
-                        @endif
 
 
-
-                    </div> -->
+                    </div>
                 </div>
             </nav>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
