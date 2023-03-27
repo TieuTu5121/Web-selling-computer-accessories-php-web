@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 
 class UserController
@@ -11,17 +12,21 @@ class UserController
 			'users' => User::all()
 		]);
 	}
-    
-	public function AddUser()
+    public function register()
 	{
-		$data = [
-			'title' => 'Thêm người dùng mới',
-			'error' => session_get_flash('error'),
-			'post_url' => '/users',
-			'user' => new User()
-		];
-
-		render_view('singin', $data);
+		render_view('register', [
+			'products' => Product::all(),
+			'user' => '',
+		]);
 	}
+	public function addUser()
+	{
+		
 
+		
+	}
+	public function login()
+	{
+		
+	}
 }

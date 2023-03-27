@@ -29,6 +29,7 @@ class User
         }
         return $users;
     }
+    
     public function save() 
     {
         $result = false;
@@ -108,5 +109,17 @@ class User
         $this->gender = $data['gender'] ?? '';
         $this->password = $data['password'] ?? '';
         return $this;
+    }
+    public static function where(string $column, $value)
+    {
+        
+        $query = PDO()->prepare("select * from users where $column = :value");
+        $query->execute(['value' => $value]);
+        if ($row = $query->fetch()) {
+            $user = new User();
+            $user->fillFromDb($row);
+            return $user;
+        }
+        return null;
     }
 }

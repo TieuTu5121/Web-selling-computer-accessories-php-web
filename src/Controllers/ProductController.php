@@ -9,7 +9,8 @@ class ProductController
     {
         
         render_view('home', [
-            'products' => Product::all()
+            'products' => Product::all(),
+            'user' => '',
         ]);
     }
     public function detail($id)
@@ -18,7 +19,8 @@ class ProductController
         
         render_view('detail', [
             'products' => Product::all(),
-            'product' => Product::findById($id)
+            'product' => Product::findById($id),
+            'user' => '',
         ]);
     }
 

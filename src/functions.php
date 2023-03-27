@@ -28,3 +28,6 @@ function PDO(): \PDO
 	global $PDO;
 	return $PDO;
 }
+function is_user($user = 'me') {
+	return (isset($_SESSION['user']) && ($_SESSION['user'] === $user));
+}
