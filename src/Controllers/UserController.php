@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\Product;
 use App\Models\User;
 
-class UserController
+class UserController extends BaseController
 {
     public function index()
 	{
@@ -23,10 +23,8 @@ class UserController
 	{
 		
 
-		
+	public function login(){
+		render_view('login',[]);
 	}
-	public function login()
-	{
-		
-	}
+
 }
