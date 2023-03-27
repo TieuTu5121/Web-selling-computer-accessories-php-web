@@ -98,7 +98,7 @@ class User
         $this->password = $row['password'];
         return $this;
     }
-
+    
     public function fill(array $data)
     {
         $this->name = $data['name'] ?? '';
@@ -109,4 +109,6 @@ class User
         $this->password = $data['password'] ?? '';
         return $this;
     }
+
+
 }

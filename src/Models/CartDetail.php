@@ -5,7 +5,7 @@ namespace App\Models;
 class CartDetail
 {
     public int $id = -1;
-    public int $cart_id = -1;
+    public int $cart_id;
     public int $product_id = -1;
     public int $product_quantity = 0;
     public int $product_price = 0;

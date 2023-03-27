@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 
-class UserController
+class UserController extends BaseController
 {
     public function index()
 	{
@@ -22,6 +22,10 @@ class UserController
 		];
 
 		render_view('singin', $data);
+	}
+
+	public function login(){
+		render_view('login',[]);
 	}
 
 }
