@@ -12,17 +12,45 @@ class UserController extends BaseController
 			'users' => User::all()
 		]);
 	}
-    public function register()
+    public function singIn()
 	{
 		render_view('register', [
 			'products' => Product::all(),
 			'user' => '',
 		]);
 	}
-	public function addUser()
-	{
-		
+	public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy dữ liệu từ form
+            $data = [
+                'name' => $_POST['name'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'phone' => $_POST['phone'] ?? '',
+                'address' => $_POST['address'] ?? '',
+                'gender' => $_POST['gender'] ?? '',
+                'password' => $_POST['password'] ?? '',
+            ];
+            
+            // Tạo một đối tượng User và lưu dữ liệu vào CSDL
+            $user = new User($data);
+            $user->save();
 
+            // Lưu ID của User vào session
+            $_SESSION['user_id'] = $user->id; 
+
+
+            // Chuyển hướng về trang chủ
+            redirect('/');
+			
+            exit;
+        }
+
+        // Nếu không phải là phương thức POST, hiển thị form đăng ký
+        render_view('home', [
+            'user' => '',
+        ]);
+	} 	
 	public function login(){
 		render_view('login',[]);
 	}
