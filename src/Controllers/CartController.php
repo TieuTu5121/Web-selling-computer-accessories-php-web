@@ -16,21 +16,7 @@ class CartController extends BaseController
     {
         $this->user = $user;
     }
-    public function login(){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $user = $this->user->where('email', $email)->where('password', $password);
-        if($user)
-        {
-            return render_view('cart', [
-                'product' => Product::all()]);
-                
-            
-        } else {
-            
-        }
-    }
+    
     public function index()
     {
         render_view('cart', [
