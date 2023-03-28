@@ -12,24 +12,24 @@ class UserController extends BaseController
 			'users' => User::all()
 		]);
 	}
-    public function signIn()
+    public function register()
 	{
 		render_view('register', [
 			'products' => Product::all(),
 			'user' => '',
 		]);
 	}
-	public function register()
+	public function signUp()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $data = [
-                'name' => $_POST['name'] ?? '',
-                'email' => $_POST['email'] ?? '',
-                'phone' => $_POST['phone'] ?? '',
-                'address' => $_POST['address'] ?? '',
-                'gender' => $_POST['gender'] ?? '',
-                'password' => $_POST['password'] ?? '',
+                'name' => $_POST['name'] ,
+                'email' => $_POST['email'],
+                'phone' => $_POST['phone'],
+                'address' => $_POST['address'],
+                'gender' => $_POST['gender'],
+                'password' => $_POST['password'],
             ];
             
             // Tạo một đối tượng User và lưu dữ liệu vào CSDL
@@ -51,7 +51,10 @@ class UserController extends BaseController
             'user' => '',
         ]);
 	} 	
-
+    public function logOut(){
+        $_SESSION['user_id'] = null;
+        redirect('/');
+    }
 	public function login(){
 		render_view('login', [
 			'products' => Product::all(),
