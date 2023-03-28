@@ -1,9 +1,21 @@
+<?php define('TITLE', 'NT Shopper - '. $product->name); 
+    include('partials/header.php')
+?>
+
+<body>
+
+    <!-- Topbar Start -->
+    <?php include('partials/topbar.php') ?>
+    
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <?php include('partials/navbar.php') ?>
+<!-- Shop Detail Start -->
+
+
 <div class="row px-xl-5">
-    @if (session('message'))
-    <div class="row px-xl-5">
-        <h3 class="text-danger">{{ session('message') }}</h3>
-    </div>
-    @endif
     <div class="col-lg-8 table-responsive mb-5">
         <table class="table table-bordered text-center mb-0">
             <thead class="bg-secondary text-dark">
@@ -122,3 +134,17 @@
     </div>
 </div>
 </div>
+    <!-- Footer Start -->
+    <?php include('partials/footer.php') ?>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <?php include('partials/javascript.php') ?>
+</body>
+
+</html>

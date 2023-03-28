@@ -12,14 +12,14 @@ class UserController extends BaseController
 			'users' => User::all()
 		]);
 	}
-    public function signIn()
+    public function register()
 	{
 		render_view('register', [
 			'products' => Product::all(),
 			'user' => '',
 		]);
 	}
-	public function register()
+	public function signUp()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form

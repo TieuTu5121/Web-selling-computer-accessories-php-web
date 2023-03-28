@@ -9,6 +9,8 @@ $router->get('/login', 'App\Controllers\UserController@login');
 
 
 //User Route
-$router->get('/register', 'App\Controllers\UserController@singIn');
-$router->post('/register','App\Controllers\UserController@register');
+$router->get('/register', 'App\Controllers\UserController@register');
+$router->post('/register','App\Controllers\UserController@signUn');
+
+
 

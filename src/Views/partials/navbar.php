@@ -43,12 +43,12 @@
                     <div class="navbar-nav ml-auto py-0">
                         <?php if ($user): ?>
                             <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?= $user->name ?>
+                                <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?= $user->name ?> <i class="fa fa-angle-down float-right m-1"></i></a>
                             
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Tài khoản của tôi</a>
-                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>
                         <?php else: ?>
