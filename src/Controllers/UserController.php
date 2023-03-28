@@ -12,7 +12,7 @@ class UserController extends BaseController
 			'users' => User::all()
 		]);
 	}
-    public function singIn()
+    public function signIn()
 	{
 		render_view('register', [
 			'products' => Product::all(),
@@ -51,8 +51,12 @@ class UserController extends BaseController
             'user' => '',
         ]);
 	} 	
+
 	public function login(){
-		render_view('login',[]);
+		render_view('login', [
+			'products' => Product::all(),
+			'user' => '',
+		]);
 	}
 
 }

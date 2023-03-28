@@ -3,7 +3,6 @@
 
     use App\Models\Product;
     use App\Models\User;
-
     class ProductController extends BaseController
     {
         public function index()
