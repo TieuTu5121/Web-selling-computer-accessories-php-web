@@ -6,6 +6,8 @@ use App\Models\User;
 
 class UserController extends BaseController
 {
+	protected $user;
+	
     public function index()
 	{
 		render_view('home', [
@@ -61,5 +63,32 @@ class UserController extends BaseController
 			'user' => '',
 		]);
 	}
+
+	public function signIn() 
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy dữ liệu từ form
+            $data = [
+                'email' => $_POST['email'],
+                'password' => $_POST['password'],
+            ];
+            
+            // Tạo một đối tượng User và lưu dữ liệu vào CSDL
+            $user = new User($data);
+            $result = User::where('email', $user->email)->where('password', md5($user->password));
+			if($result)
+			{
+				$_SESSION['user_id'] = $result->id;
+				redirect('/');
+			} else {
+				// $_SESSION['message'] = 'Your email or password is incorrect.';
+				render_view('login', [
+					'products' => Product::all(),
+					'user' => '',
+				]);
+			}
+        }
+	}
+	
 
 }

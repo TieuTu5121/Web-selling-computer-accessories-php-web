@@ -87,7 +87,7 @@
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password">
+                                        name="password-confirm" required autocomplete="new-password">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -123,6 +123,17 @@
 
     <!-- JavaScript Libraries -->
     <?php include('partials/javascript.php') ?>
+    <script>
+            document.getElementById("register-form").addEventListener("submit", function(event) {
+            // ở đây kiểm tra xem hai trường password có giống nhau không
+                var password = document.getElementById("password").value;
+                var passwordConfirm = document.getElementById("password-confirm").value;
+                if (password !== passwordConfirm) {
+                    alert("Hai trường password phải giống nhau!");
+                    event.preventDefault(); // ngăn chặn việc gửi form đi
+                }
+            });
+    </script>
 </body>
 
 </html>
