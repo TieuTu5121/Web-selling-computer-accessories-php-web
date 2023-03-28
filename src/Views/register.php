@@ -21,7 +21,7 @@
                     <div class="card-header">Register</div>
 
                     <div class="card-body">
-                        <form method="POST" action="/addUser">
+                        <form method="POST" action="/register">
                             
 
                             <div class="row mb-3">
@@ -42,8 +42,6 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control"
                                         name="email" value=""  autocomplete="email">
-
-                                    
                                 </div>
                             </div>
 
