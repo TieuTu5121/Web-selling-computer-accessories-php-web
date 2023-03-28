@@ -8,8 +8,6 @@ class BaseController
 {
     protected $model;
 
-    
-
     public function where(array $conditions)
     {
         $this->model->where($conditions);

@@ -11,6 +11,7 @@ class CartController extends BaseController
 
 {
     protected $user;
+    protected $model;
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -37,19 +38,6 @@ class CartController extends BaseController
         ]);
     }
 
-    public function show($id)
-    {
-        $cart = Cart::findById($id);
-        if ($cart) {
-            $cartDetails = CartDetail::findByCartId($id);
-            render_view('cart_detail', [
-                'cart' => $cart,
-                'cartDetails' => $cartDetails,
-            ]);
-        } else {
-            render_view('error', ['message' => 'Cart not found']);
-        }
-    }
 
     public function store($data)
     {
@@ -138,7 +126,7 @@ class CartController extends BaseController
         // Kiểm tra đăng nhập
         if (!isset($_SESSION['user_id'])) {
             // Nếu chưa đăng nhập, chuyển hướng sang trang login
-            render_view('login',[]);
+            render_view('login',['users' => '']);
             exit;
         }
 

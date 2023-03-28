@@ -1,35 +1,29 @@
 <?php 
-namespace App\Controllers;
+    namespace App\Controllers;
 
-use App\Models\Product;
-
-class ProductController extends BaseController
-{
-    public function index()
+    use App\Models\Product;
+    use App\Models\User;
+    class ProductController extends BaseController
     {
-        $user = $_SESSION['user'];
-        if($user) {
+        public function index()
+        {
+            $user = User::auth();
+            
             render_view('home', [
                 'products' => Product::all(),
                 'user' => $user,
-            ]);
-        } else {
-            render_view('home', [
+            ]); 
+        }
+        public function detail($id)
+        {
+            $user = User::auth();
+
+            
+            render_view('detail', [
                 'products' => Product::all(),
-                'user' => '',
+                'product' => Product::findById($id),
+                'user' => $user,
             ]);
-        }  
-        
-    }
-    public function detail($id)
-    {
+        }
 
-        
-        render_view('detail', [
-            'products' => Product::all(),
-            'product' => Product::findById($id),
-            'user' => '',
-        ]);
     }
-
-}
