@@ -18,13 +18,12 @@ class UserController extends BaseController
 			'products' => Product::all(),
 			'user' => '',
 		]);
-	}
-	public function addUser()
-	{
-		
-
+	}	
 	public function login(){
-		render_view('login',[]);
+		render_view('login', [
+			'products' => Product::all(),
+			'user' => '',
+		]);
 	}
 
 }
