@@ -123,8 +123,6 @@ class User
         }
         return null;
     }
-
-
     public static function auth(){
         $user_id = $_SESSION['user_id'] ?? null;
         $user = null;

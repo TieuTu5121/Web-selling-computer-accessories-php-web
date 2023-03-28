@@ -10,6 +10,7 @@ $router->post('/cart-add', 'App\Controllers\CartController@store');
 $router->get('/login', 'App\Controllers\UserController@login');
 $router->get('/register', 'App\Controllers\UserController@register');
 $router->post('/register','App\Controllers\UserController@signUp');
-$router->get('/logout','App\Controllers\UserController@logout');
 
+$router->get('/logout','App\Controllers\UserController@logout');
+$router->post('/login', 'App\Controllers\UserController@signIn');
 
