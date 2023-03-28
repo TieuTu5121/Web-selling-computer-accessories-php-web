@@ -25,7 +25,6 @@
                             <div class="row mb-3">
                                 <label for="customer_email"
                                     class="col-md-4 col-form-label text-md-end">Email</label>
-
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control"
                                         name="email" value=""  autocomplete="email">
