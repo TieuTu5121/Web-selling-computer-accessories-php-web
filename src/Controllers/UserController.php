@@ -24,7 +24,7 @@ class UserController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $data = [
-                'name' => $_POST['name'] ,
+                'name' => $_POST['name'] :,
                 'email' => $_POST['email'],
                 'phone' => $_POST['phone'],
                 'address' => $_POST['address'],
@@ -34,16 +34,19 @@ class UserController extends BaseController
             
             // Tạo một đối tượng User và lưu dữ liệu vào CSDL
             $user = new User($data);
-            $user->save();
+            if($user){
+                $user->save();
 
-            // Lưu ID của User vào session
-            $_SESSION['user_id'] = $user->id; 
+                // Lưu ID của User vào session
 
+                $_SESSION['user_id'] = $user->id; 
 
-            // Chuyển hướng về trang chủ
-            redirect('/');
-			
-            exit;
+                // Chuyển hướng về trang chủ
+
+                redirect('/');
+                exit;
+            }
+            
         }
 
         // Nếu không phải là phương thức POST, hiển thị form đăng ký
