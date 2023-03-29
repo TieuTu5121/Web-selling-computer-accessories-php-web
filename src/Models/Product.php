@@ -5,6 +5,8 @@
  {
     public int $id = -1;
     public string $image;
+    public string $image1;
+    public string $image2;
     public string $name;
     public string $description;
     public int $price;
@@ -30,12 +32,14 @@
     {
         $result = false;
         if($this->id >=0) {
-            $query = PDO()->prepare('update products set image = :image, name = :name, description = :description,
+            $query = PDO()->prepare('update products set image = :image, image = :image1, image = :image2, name = :name, description = :description,
             price = :price, quantity = :quantity, category = :category where id = :id');
         
             $result = $query->execute([
                 'id' => $this->id,
                 'image' => $this->image,
+                'image1' => $this->image1,
+                'image2' => $this->image2,
                 'name' => $this->name,
                 'description' => $this->description,
                 'price' => $this->price,
@@ -44,10 +48,12 @@
             ]);
         } else {
             $query = PDO()->prepare(
-                'insert into products (image, name, description, price, quantity, category)
+                'insert into products (image, image1, image2, name, description, price, quantity, category)
                 values (:image, :name, :description, :price, :quantity, :category)');
             $result = $query->execute([
                     'image' => $this->image,
+                    'image1' => $this->image1,
+                    'image2' => $this->image2,
                     'name' => $this->name,
                     'description' => $this->description,
                     'price' => $this->price,
@@ -82,6 +88,8 @@
     {
         $this->id = $row['id'];
         $this->image = $row['image'];
+        $this->image1 = $row['image1'];
+        $this->image2 = $row['image2'];
         $this->name = $row['name'];
         $this->description = $row['description'];
         $this->price = $row['price'];
@@ -93,6 +101,8 @@
     public function fill(array $data)
     {
         $this->image = $data['image'] ?? '';
+        $this->image1 = $data['image1'] ?? '';
+        $this->image2 = $data['image2'] ?? '';
         $this->name = $data['name'] ?? '';
         $this->description = $data['description'] ?? '';
         $this->price = $data['price'] ?? 0;

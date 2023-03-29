@@ -10,14 +10,28 @@
                 id="navbar-vertical">
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
 
-                    <?php foreach ($products as $item): ?>
-                        <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-toggle="dropdown"><?= $item->category ?> <i
+                    
+                    <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown">Speaker<i
                                         class="fa fa-angle-down float-right mt-1"></i></a>
                                 
-                            </div>
-                    <?php endforeach ?>
-
+                    </div>
+                    <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown">Headphones<i
+                                        class="fa fa-angle-down float-right mt-1"></i></a>
+                                
+                    </div>
+                    <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown">Mouse<i
+                                        class="fa fa-angle-down float-right mt-1"></i></a>
+                                
+                    </div>
+                    <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown">Keyboard<i
+                                        class="fa fa-angle-down float-right mt-1"></i></a>
+                                
+                    </div>
+                    
                 </div>
             </nav>
         </div>
@@ -61,28 +75,25 @@
                     </div>
                 </div>
             </nav>
+            
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" style="height: 410px;">
-                        <img class="img-fluid" src="<?= BASEURL; ?>img/carousel-1.jpg" alt="Image">
+                        <img class="img-fluid" src="https://nguyenvu.store/wp-content/uploads/2023/02/SIDEBAR-NOEL-copy-2.webp" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
-                                    Order</h4>
-                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="carousel-item" style="height: 410px;">
-                        <img class="img-fluid" src="<?= BASEURL; ?>img/carousel-2.jpg" alt="Image">
+                        <img class="img-fluid" src="https://nguyenvu.store/wp-content/uploads/2023/02/Untitled-1-1.webp" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First
-                                    Order</h4>
-                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 410px;">
+                        <img class="img-fluid" src="https://nguyenvu-store-medias.tn-cdn.net/2023/03/Xa-kho-Akko-DS-Horizon.webp" alt="Image">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,16 @@
                             src="<?= $product->image ? $product->image : '' ?>"
                             alt="Image">
                     </div>
+                    <div class="carousel-item ">
+                        <img class="w-100 h-100"
+                            src="<?= $product->image1 ? $product->image1 : '' ?>"
+                            alt="Image">
+                    </div>
+                    <div class="carousel-item ">
+                        <img class="w-100 h-100"
+                            src="<?= $product->image2 ? $product->image2 : '' ?>"
+                            alt="Image">
+                    </div>
 
                 </div>
                 <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -44,15 +54,15 @@
             <div class="d-flex mb-3">
 
             </div>
-            <h3 class="font-weight-semi-bold mb-4">₫<?= number_format($product->price) ?></h3>
+            <h3 class="font-weight-semi-bold mb-4"><?= number_format($product->price) ?>VNĐ</h3>
             <div class="d-flex mb-4">
-                <p class="text-dark font-weight-medium mb-0 mr-3"><?= $product->quantity ?> Sản phẩm có sẵn</p>
+                <p class="text-dark font-weight-medium mb-0 mr-3"><?= $product->quantity ?> Products Available</p>
             </div>
             <div class="d-flex mb-4">
-                <p class="text-dark font-weight-medium mb-0 mr-3">Tình trạng: New</p>
+                <p class="text-dark font-weight-medium mb-0 mr-3">Status: New</p>
             </div>
             <div class="d-flex mb-4">
-                <p class="text-dark font-weight-medium mb-0 mr-3">Danh mục: <?= $product->category ?></p>
+                <p class="text-dark font-weight-medium mb-0 mr-3">Category: <?= $product->category ?></p>
             </div>
 
             <div class="d-flex align-items-center mb-4 pt-2">
