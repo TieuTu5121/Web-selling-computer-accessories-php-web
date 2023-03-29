@@ -14,3 +14,5 @@ $router->post('/register','App\Controllers\UserController@signUp');
 $router->get('/logout','App\Controllers\UserController@logout');
 $router->post('/login', 'App\Controllers\UserController@signIn');
 
+//Cart
+$router->get('/cart', 'App\Controllers\CartController@index');

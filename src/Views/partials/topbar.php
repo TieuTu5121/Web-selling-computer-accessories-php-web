@@ -50,7 +50,7 @@
         </div>
         <div class="col-lg-3 col-6 text-right">
 
-            <a href="{{ route('client.carts.index') }}" class="btn border">
+            <a href="/cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge" id="productCountCart">0</span>
             </a>
