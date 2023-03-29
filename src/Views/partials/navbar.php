@@ -50,7 +50,7 @@
 
 
                         <a href="
-                        
+                        /order
                         " class="nav-link">Order</a>
 
                     </div>
