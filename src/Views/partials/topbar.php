@@ -49,11 +49,17 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-
-            <a href="{{ route('client.carts.index') }}" class="btn border">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge" id="productCountCart">0</span>
-            </a>
+            <?php if ($cart): ?>
+                <a href="/carts/<?= $cart->id?>" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge" id="productCountCart"><?=$_SESSION['cart_total'] ?></span>
+                </a>
+            <?php else: ?>
+                <a href="#" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge" id="productCountCart">0</span>
+                </a>
+            <?php endif ?>
         </div>
     </div>
 </div>

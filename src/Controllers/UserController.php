@@ -6,6 +6,8 @@ use App\Models\User;
 
 class UserController extends BaseController
 {
+	protected $user;
+	
     public function index()
 	{
 		render_view('home', [
@@ -17,43 +19,47 @@ class UserController extends BaseController
 		render_view('register', [
 			'products' => Product::all(),
 			'user' => '',
+            'cart' => null,
 		]);
 	}
 	public function signUp()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Lấy dữ liệu từ form
-            $data = [
-                'name' => $_POST['name'] ?? '',
-                'email' => $_POST['email'] ?? '',
-                'phone' => $_POST['phone'] ?? '',
-                'address' => $_POST['address'] ?? '',
-                'gender' => $_POST['gender'] ?? '',
-                'password' => $_POST['password'] ?? '',
-            ];
-            
-            // Tạo một đối tượng User và lưu dữ liệu vào CSDL
-            $user = new User($data);
-            if($user){
-                $user->save();
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Lấy dữ liệu từ form
+        $data = [
+            'name' => $_POST['name'] ?? '',
+            'email' => $_POST['email'] ?? '',
+            'phone' => $_POST['phone'] ?? '',
+            'address' => $_POST['address'] ?? '',
+            'gender' => $_POST['gender'] ?? '',
+            'password' => $_POST['password'] ?? '',
+        ];
 
-                // Lưu ID của User vào session
+        // Check if email address is already in use
 
-                $_SESSION['user_id'] = $user->id; 
+        $user = new User($data);
 
-                // Chuyển hướng về trang chủ
+        $user->save();
 
-                redirect('/');
-                exit;
-            }
-            
-        }
+        // Lưu ID của User vào session
 
-        // Nếu không phải là phương thức POST, hiển thị form đăng ký
-        render_view('home', [
-            'user' => '',
-        ]);
-	} 	
+        $_SESSION['user_id'] = $user->id;
+
+        // Chuyển hướng về trang chủ
+
+        redirect('/');
+        exit;
+
+    }
+
+    // Hiển thị form đăng ký và thông báo lỗi nếu có
+    render_view('register', [
+        'user' => '',
+        'cart' => null,
+    ]);
+}
+
+	
     public function logOut(){
         $_SESSION['user_id'] = null;
         redirect('/');
@@ -62,7 +68,41 @@ class UserController extends BaseController
 		render_view('login', [
 			'products' => Product::all(),
 			'user' => '',
+            'cart' => null,
 		]);
 	}
+
+	public function signIn() 
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy dữ liệu từ form
+            $data = [
+                'email' => $_POST['email'],
+                'password' => $_POST['password'],
+            ];
+            
+            // Tạo một đối tượng User và lưu dữ liệu vào CSDL
+            $user = new User($data);
+            $result = User::where('email', $user->email)->where('password', md5($user->password));
+			if ($result) {
+                $_SESSION['user_id'] = $result->id;
+                if (isset($_SESSION['old_url'])) {
+                    $old_url = $_SESSION['old_url'];
+                    unset($_SESSION['old_url']);
+                    redirect($old_url);
+                } else {
+                    redirect('/');
+                }
+                
+			} else {
+				// $_SESSION['message'] = 'Your email or password is incorrect.';
+				render_view('login', [
+					'products' => Product::all(),
+					'user' => '',
+				]);
+			}
+        }
+	}
+	
 
 }

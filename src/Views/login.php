@@ -27,7 +27,7 @@
                                     class="col-md-4 col-form-label text-md-end">Email</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control"
-                                        name="email" value=""  autocomplete="email">
+                                        name="email" value="" required autocomplete="email">
 
                                     
                                 </div>
@@ -39,7 +39,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                         class="form-control " name="password"
-                                         autocomplete="new-password">
+                                        required autocomplete="new-password">
 
                                    
                                 </div>
@@ -54,6 +54,14 @@
                                     </button>
                                 </div>
                             </div>
+                            <!-- <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <a href="/register" type="submit" class="btn btn-primary">
+                                        Register
+                                    </a>
+                                </div>
+                            </div> -->
+                            
                         </form>
                     </div>
                 </div>

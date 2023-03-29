@@ -1,19 +1,14 @@
 <?php
-
 namespace App\Models;
 
 class CartDetail
 {
     public int $id = -1;
     public int $cart_id;
-    public int $product_id = -1;
+    public Product $product;
     public int $product_quantity = 0;
-    public int $product_price = 0;
 
-    public function __construct(array $data = [])
-    {
-        $this->fill($data);
-    }
+
 
     public static function all(): array
     {
@@ -33,23 +28,21 @@ class CartDetail
         $result = false;
         if ($this->id >= 0) {
             $query = PDO()->prepare('update cart_detail set cart_id = :cart_id, product_id = :product_id, 
-                product_quantity = :product_quantity, product_price = :product_price where id = :id');
+                product_quantity = :product_quantity where id = :id');
             $result = $query->execute([
                 'id' => $this->id,
                 'cart_id' => $this->cart_id,
-                'product_id' => $this->product_id,
+                'product_id' => $this->product->id,
                 'product_quantity' => $this->product_quantity,
-                'product_price' => $this->product_price,
             ]);
         } else {
             $query = PDO()->prepare(
-                'insert into cart_detail (cart_id, product_id, product_quantity, product_price) 
-                values (:cart_id, :product_id, :product_quantity, :product_price)');
+                'insert into cart_detail (cart_id, product_id, product_quantity) 
+                values (:cart_id, :product_id, :product_quantity)');
             $result = $query->execute([
                 'cart_id' => $this->cart_id,
-                'product_id' => $this->product_id,
+                'product_id' => $this->product->id,
                 'product_quantity' => $this->product_quantity,
-                'product_price' => $this->product_price,
             ]);
             if ($result) {
                 $this->id = PDO()->lastInsertId();
@@ -57,6 +50,15 @@ class CartDetail
         }
         return $result;
     }
+    public function updateQuantity($quantity)
+    {
+        $id = $this->id;
+        $query =  PDO()->prepare('UPDATE cart_detail SET product_quantity = ? WHERE id = ?');
+        return $query->execute(['id' => $id,'product_quantity'=>$quantity]);
+    }
+    
+
+
 
     public function delete()
     {
@@ -80,17 +82,42 @@ class CartDetail
     {
         $this->id = $row['id'];
         $this->cart_id = $row['cart_id'];
-        $this->product_id = $row['product_id'];
+        $this->product = Product::findById($row['product_id']);
         $this->product_quantity = $row['product_quantity'];
-        $this->product_price = $row['product_price'];
         return $this;
     }
     public function fill(array $data)
     {
         $this->cart_id = $data['cart_id'] ?? -1;
-        $this->product_id = $data['product_id'] ?? -1;
+        $this->product = $data['product'] ?? null;
         $this->product_quantity = $data['product_quantity'] ?? 0;
-        $this->product_price = $data['product_price'] ?? 0;
         return $this;
     }
+
+    public static function where(string $column, $value)
+    {
+        
+        $query = PDO()->prepare("select * from cart_detail where $column = :value");
+        $query->execute(['value' => $value]);
+        if ($row = $query->fetch()) {
+            $cartDetail = new CartDetail();
+            $cartDetail->fillFromDb($row);
+            return $cartDetail;
+        }
+        return null;
+    }
+    public static function findByCartIdProductId(int $cartId, int $productId)
+{
+    $query = PDO()->prepare('select * from cart_detail where cart_id = :cart_id and product_id = :product_id');
+    $query->execute([
+        'cart_id' => $cartId,
+        'product_id' => $productId
+    ]);
+    if ($row = $query->fetch()) {
+        $cartDetail = new CartDetail();
+        $cartDetail->fillFromDb($row);
+        return $cartDetail;
+    }
+    return null;
+}
 }

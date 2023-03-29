@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 mb-5">
+                <!-- <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
                     <form action="">
                         <div class="form-group">
@@ -41,7 +41,7 @@
                                 Now</button>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

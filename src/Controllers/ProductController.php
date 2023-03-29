@@ -12,6 +12,7 @@
             render_view('home', [
                 'products' => Product::all(),
                 'user' => $user,
+                'cart' => null,
             ]); 
         }
         public function detail($id)
@@ -23,6 +24,7 @@
                 'products' => Product::all(),
                 'product' => Product::findById($id),
                 'user' => $user,
+                'cart' => null
             ]);
         }
 
