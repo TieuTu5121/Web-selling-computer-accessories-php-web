@@ -21,7 +21,7 @@
                     <div class="card-header">Login</div>
 
                     <div class="card-body">
-                        <form method="POST" action="/check-login">
+                        <form method="POST" action="/login">
                             <div class="row mb-3">
                                 <label for="customer_email"
                                     class="col-md-4 col-form-label text-md-end">Email</label>
