@@ -29,40 +29,32 @@ class CartController extends BaseController
             $product = Product::findById($data['product_id']);
             // Nếu đã đăng nhập, kiểm tra xem user đã có cart chưa
             $user_id = $_SESSION['user_id'];
-            $cart_id = Cart::where('user_id',$user_id)->id;
-            if(!$cart_id){
+            $cart = Cart::where('user_id',$user_id);
+            if(!$cart){
                 $cart = $this->createCart($user_id);
                 $_SESSION['cart_id'] = $cart->id;
             }
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
-
-            $cartDetail = CartDetail::findByCartIdProductId($cart_id,$data['product_id']);
-            $data['cart_id'] = $cart_id;
+            
+            $cartDetailOld = CartDetail::findByCartIdProductId($cart->id,$data['product_id']);
+            $data['cart_id'] = $cart->id;
             $data['product'] = $product;
-            if ($cartDetail !== null) {
+            
+            if ($cartDetailOld) {
                 // Nếu đã có cart detail, cập nhật số lượng sản phẩm
-                $cartDetail->product_quantity += $data['product_quantity'];
-                if ($product === null) {
-                    render_view('error', ['message' => 'Product is null']);
+                $cartDetailOld->product_quantity += $data['product_quantity'];
+                $cartDetailOld->product = $product;
+                if ($cartDetailOld->save()) {
+                    $_SESSION['cart_total'] += $data['product_quantity'];
                 } else {
-                    $cartDetail->product = $product;
-                    if ($cartDetail->save()) {
-                        $_SESSION['cart_total'] += $data['product_quantity'];
-                    } else {
-                        render_view('error', ['message' => 'Failed to update cart detail']);
-                    }
-                }
+                    render_view('error', ['message' => 'Failed to update cart detail']);
+                } 
             } else {
                 // Nếu chưa có cart detail, tạo mới
                 if ($product === null) {
                     render_view('error', ['message' => 'Product is null']);
                 } else {
-                    $cartDetail = new CartDetail([
-                        'cart_id' => $cart_id,
-                        'product_id' => $data['product_id'],
-                        'product_quantity' => $data['product_quantity'],
-                        'product' => $product
-                    ]);
+                    $cartDetail = new CartDetail($data);
                     if ($cartDetail->save()) {
                         $_SESSION['cart_total'] += $data['product_quantity'];
                     } else {
@@ -77,13 +69,7 @@ class CartController extends BaseController
     public function createCart($userId)
     {
         $cart = new Cart(['user_id' => $userId]);
-        if ($cart->save()) {
-            render_view('cart', [
-                'cart' => Cart::all(),
-            ]);
-        } else {
-            render_view('error', ['message' => 'Failed to create cart']);
-        }
+        $cart->save();
         $_SESSION['cart_total'] = 0;
         return $cart;
     }

@@ -6,7 +6,10 @@ class Cart
 {
     public int $id = -1;
     public int $user_id = -1;
-
+    public function __construct(array $data = [])
+    {
+        $this->fill($data);
+    }
 
     public static function all(): array
     {

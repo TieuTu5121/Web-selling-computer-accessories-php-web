@@ -9,7 +9,10 @@ class CartDetail
     public int $product_quantity = 0;
 
 
-
+    public function __construct(array $data = [])
+    {
+        $this->fill($data);
+    }
     public static function all(): array
     {
         $cartDetails = [];
@@ -107,17 +110,17 @@ class CartDetail
         return null;
     }
     public static function findByCartIdProductId(int $cartId, int $productId)
-{
-    $query = PDO()->prepare('select * from cart_detail where cart_id = :cart_id and product_id = :product_id');
-    $query->execute([
-        'cart_id' => $cartId,
-        'product_id' => $productId
-    ]);
-    if ($row = $query->fetch()) {
-        $cartDetail = new CartDetail();
-        $cartDetail->fillFromDb($row);
-        return $cartDetail;
+    {
+        $query = PDO()->prepare('select * from cart_detail where cart_id = :cart_id and product_id = :product_id');
+        $query->execute([
+            'cart_id' => $cartId,
+            'product_id' => $productId
+        ]);
+        if ($row = $query->fetch()) {
+            $cartDetail = new CartDetail();
+            $cartDetail->fillFromDb($row);
+            return $cartDetail;
+        }
+        return null;
     }
-    return null;
-}
 }
