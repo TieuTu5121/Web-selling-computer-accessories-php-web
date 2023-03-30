@@ -50,7 +50,7 @@
         </div>
         <div class="col-lg-3 col-6 text-right">
             <?php if ($cart): ?>
-                <a href="/carts/<?= $cart->id?>" class="btn border">
+                <a href="" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge" id="productCountCart"><?=$_SESSION['cart_total'] ?></span>
                 </a>
@@ -61,10 +61,6 @@
                 </a>
             <?php endif ?>
 
-            <a href="/cart" class="btn border">
-                <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge" id="productCountCart">0</span>
-            </a>
         </div>
     </div>
 </div>
