@@ -10,17 +10,14 @@ use App\Models\CartDetail;
 class CartController extends BaseController
 
 {
-    protected $user;
-    protected $model;
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
+    
     
     public function index()
     {
+        $user = User::auth();
         render_view('cart', [
-            'carts' => Cart::detail(),
+            'products' => Product::all(),
+            'user' => $user,
         ]);
     }
 
@@ -30,7 +27,7 @@ class CartController extends BaseController
         $cart = new Cart($data);
         if ($cart->save()) {
             render_view('cart', [
-                'cart' => Cart::detail(),
+                'cart' => Cart::all(),
             ]);
         } else {
             render_view('error', ['message' => 'Failed to create cart']);

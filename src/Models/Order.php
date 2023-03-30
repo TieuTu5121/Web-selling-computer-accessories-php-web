@@ -4,14 +4,17 @@
  class Product
  {
     public int $id = -1;
-    public string $image;
-    public string $image1;
-    public string $image2;
-    public string $name;
-    public string $description;
-    public int $price;
-    public int $quantity;
-    public string $category;
+    public int $user_id = -1;
+    public string $status;
+    public int $total;
+    public int $ship;
+    public string $customer_name;
+    public string $customer_email;
+    public string $custome_phone;
+    public string $customer_address;
+    public string $note;
+    public string $payment;
+
     public function __construct(array $data = [])
     {
         $this->fill($data);
