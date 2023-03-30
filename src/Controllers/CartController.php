@@ -3,28 +3,80 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
-use App\Models\Product;
-use App\Models\User;
 use App\Models\CartDetail;
+use App\Models\Product;
 
 class CartController extends BaseController
-
-{
+{   
     
-    
-    public function index()
-    {
-        $user = User::auth();
-        render_view('cart', [
-            'products' => Product::all(),
-            'user' => $user,
-        ]);
+    public function showCartDetail(){
     }
-
-
-    public function store($data)
+    public function addCart()
     {
-        $cart = new Cart($data);
+            // Lấy dữ liệu từ form
+            $data = [
+                'product_id' => $_POST['product_id'],
+                'product_quantity' => $_POST['quantity']
+            ];
+            
+            // Kiểm tra đăng nhập
+            if (!isset($_SESSION['user_id'])) {
+                $_SESSION['old_url'] = '/product/' . $data['product_id'];
+                // Nếu chưa đăng nhập, chuyển hướng sang trang login
+                redirect('/login');
+                exit;
+            }
+            $product = Product::findById($data['product_id']);
+            // Nếu đã đăng nhập, kiểm tra xem user đã có cart chưa
+            $user_id = $_SESSION['user_id'];
+            $cart_id = Cart::where('user_id',$user_id)->id;
+            if(!$cart_id){
+                $cart = $this->createCart($user_id);
+                $_SESSION['cart_id'] = $cart->id;
+            }
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
+
+            $cartDetail = CartDetail::findByCartIdProductId($cart_id,$data['product_id']);
+            $data['cart_id'] = $cart_id;
+            $data['product'] = $product;
+            if ($cartDetail !== null) {
+                // Nếu đã có cart detail, cập nhật số lượng sản phẩm
+                $cartDetail->product_quantity += $data['product_quantity'];
+                if ($product === null) {
+                    render_view('error', ['message' => 'Product is null']);
+                } else {
+                    $cartDetail->product = $product;
+                    if ($cartDetail->save()) {
+                        $_SESSION['cart_total'] += $data['product_quantity'];
+                    } else {
+                        render_view('error', ['message' => 'Failed to update cart detail']);
+                    }
+                }
+            } else {
+                // Nếu chưa có cart detail, tạo mới
+                if ($product === null) {
+                    render_view('error', ['message' => 'Product is null']);
+                } else {
+                    $cartDetail = new CartDetail([
+                        'cart_id' => $cart_id,
+                        'product_id' => $data['product_id'],
+                        'product_quantity' => $data['product_quantity'],
+                        'product' => $product
+                    ]);
+                    if ($cartDetail->save()) {
+                        $_SESSION['cart_total'] += $data['product_quantity'];
+                    } else {
+                        render_view('error', ['message' => 'Failed to add cart detail']);
+                    }
+                }
+            }
+            
+            redirect('/');
+        
+    }
+    public function createCart($userId)
+    {
+        $cart = new Cart(['user_id' => $userId]);
         if ($cart->save()) {
             render_view('cart', [
                 'cart' => Cart::all(),
@@ -32,29 +84,26 @@ class CartController extends BaseController
         } else {
             render_view('error', ['message' => 'Failed to create cart']);
         }
+        $_SESSION['cart_total'] = 0;
+        return $cart;
     }
 
-    public function update($id, $data)
+    public function updateCart($id, $data)
     {
         $cart = Cart::findById($id);
         if ($cart) {
             $cart->fill($data);
-            if ($cart->save()) {
-                header('Location: /cart/'.$cart->id);
-            } else {
-                render_view('error', ['message' => 'Failed to update cart']);
-            }
-        } else {
-            render_view('error', ['message' => 'Cart not found']);
-        }
+            $cart->save();
+        }   
     }
 
-    public function destroy($id)
+    public function deleteCart($id)
     {
         $cart = Cart::findById($id);
         if ($cart) {
             if ($cart->delete()) {
-                header('Location: /cart');
+                $_SESSION['cart_total'] = 0;
+                redirect('/');
             } else {
                 render_view('error', ['message' => 'Failed to delete cart']);
             }
@@ -63,12 +112,12 @@ class CartController extends BaseController
         }
     }
 
-    public function storeCartDetail($cartId, $data)
+    public function createCartDetail($cartId, $data)
     {
         $cartDetail = new CartDetail($data);
         $cartDetail->cart_id = $cartId;
         if ($cartDetail->save()) {
-            header("Location: /cart/{$cartId}/detail");
+            $_SESSION['cart_total'] = $cartDetail->product_quantity;
         } else {
             render_view('error', ['message' => 'Failed to create cart detail']);
         }
@@ -80,22 +129,23 @@ class CartController extends BaseController
         if ($cartDetail) {
             $cartDetail->fill($data);
             if ($cartDetail->save()) {
-                header("Location: /cart/{$cartDetail->cart_id}/detail");
+                $_SESSION['cart_total'] += $cartDetail->product_quantity;
             } else {
                 render_view('error', ['message' => 'Failed to update cart detail']);
             }
         } else {
             render_view('error', ['message' => 'Cart detail not found']);
         }
+        return $cartDetail;
     }
 
-    public function destroyCartDetail($id)
+    public function deleteCartDetail($id)
     {
         $cartDetail = CartDetail::findById($id);
         if ($cartDetail) {
             $cartId = $cartDetail->cart_id;
             if ($cartDetail->delete()) {
-                header("Location: /cart/{$cartId}/detail");
+                $_SESSION['cart_total'] -= $cartDetail->product_quantity;
             } else {
                 render_view('error', ['message' => 'Failed to delete cart detail']);
             }
@@ -104,34 +154,6 @@ class CartController extends BaseController
         }
     }
 
-    public function addCart($data)
-    {
-        // Kiểm tra đăng nhập
-        if (!isset($_SESSION['user_id'])) {
-            // Nếu chưa đăng nhập, chuyển hướng sang trang login
-            render_view('login',['users' => '']);
-            exit;
-        }
-
-        // Nếu đã đăng nhập, kiểm tra xem user đã có cart chưa
-        $user_id = $_SESSION['user_id'];
-        $cart = $this->where(['user_id',$user_id])->first();
-        if (!$cart) {
-            // Nếu chưa có cart thì tạo mới
-            $cart = new Cart(['user_id' => $user_id]);
-            if (!$cart->save()) {
-                render_view('error', ['message' => 'Thêm vào giỏ hàng thất bại']);
-                exit;
-            }
-        }
-
-        // Thêm sản phẩm vào cart detail
-        $cartDetail = new CartDetail($data);
-        $cartDetail->cart_id = $cart->id;
-        if (!$cartDetail->save()) {
-            render_view('error', ['message' => 'Không thể thêm vào giỏ hàng ']);
-            exit;
-        }
-    }
+    
 
 }

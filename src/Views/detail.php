@@ -16,8 +16,7 @@
 
 <div class="container-fluid py-5">
     <form action="
-        /add-cart
-        " method="POST" class="row px-xl-5">
+    /product/<?= $product->id ?>" method="POST" class="row px-xl-5">
         
         <input type="hidden" name="product_id" value="<?= $product->id ?>">
         <div class="col-lg-5 pb-5">

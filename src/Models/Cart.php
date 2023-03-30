@@ -7,10 +7,6 @@ class Cart
     public int $id = -1;
     public int $user_id = -1;
 
-    public function __construct(array $data = [])
-    {
-        $this->fill($data);
-    }
 
     public static function all(): array
     {
@@ -85,4 +81,20 @@ class Cart
         $this->user_id = $data['user_id'] ?? 0;
         return $this;
     }
+
+    public static function where(string $column, $value)
+    {
+        
+        $query = PDO()->prepare("select * from carts where $column = :value");
+        $query->execute(['value' => $value]);
+        if ($row = $query->fetch()) {
+            $cart = new Cart();
+            $cart->fillFromDb($row);
+            return $cart;
+        }
+        return null;
+    }
+
+    
+
 }

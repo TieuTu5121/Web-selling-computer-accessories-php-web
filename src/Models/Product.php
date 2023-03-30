@@ -122,4 +122,13 @@
         }
         return $users;
     }
+    public static function auth(){
+        $product_id = $_SESSION['product_id'] ?? null;
+        $product = null;
+        
+        if ($product_id) {
+            $product = Product::findById($product_id);
+        }
+        return $product;
+    }
  }

@@ -1,7 +1,6 @@
 <?php 
     define('TITLE', 'NT Shopper - '); 
     include('partials/header.php')
-    
 ?>
 
 <body>

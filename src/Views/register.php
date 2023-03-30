@@ -17,99 +17,65 @@
 <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Register</div>
-
-                    <div class="card-body">
-                        <form method="POST" action="/register">
-                            
-
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control"
-                                        name="name" value="" required autocomplete="name">
-
-                                    
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="customer_email"
-                                    class="col-md-4 col-form-label text-md-end">Email</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control"
-                                        name="email" value="" required autocomplete="email">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="customer_phone" class="col-md-4 col-form-label text-md-end">Phone</label>
-
-                                <div class="col-md-6">
-                                    <input id="phone" type="text" class="form-control"
-                                        name="phone" value="" required autocomplete="phone">
-
-                                    
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-3">
-                                <label for="phone" class="col-md-4 col-form-label text-md-end">Gender</label>
-
-                                <div class="col-md-6">
-                                    <select name="gender" required class="form-control">
-                                        <option value="male">Male</option>
-                                        <option value="fe-male">FeMale</option>
-                                    </select>
-
-                                </div>
-                            </div> 
-
-                            <div class="row mb-3">
-                                <label for="customer_password"
-                                    class="col-md-4 col-form-label text-md-end">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" required type="password"
-                                        class="form-control " name="password"
-                                         autocomplete="new-password">
-
-                                   
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="customer_password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">Confirm password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password-confirm" required autocomplete="new-password">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="phone" class="col-md-4 col-form-label text-md-end">Address</label>
-
-                                <div class="col-md-6">
-                                    <textarea id="address" type="text" class="form-control"
-                                        name="address" value="" required autocomplete="address"></textarea>
-
-                                    
-                                </div>
-                            </div>
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Register
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+            <div class="card">
+                <div class="card-header">Register</div>
+                <div class="card-body">
+                    <form method="POST" action="/register">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-4 col-form-label">Full Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label">Email<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="phone" class="col-sm-4 col-form-label">Phone<span class="text-danger"></span></label>
+                        <div class="col-sm-8">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="gender" class="col-sm-4 col-form-label">Gender<span class="text-danger"></span></label>
+                        <div class="col-sm-8">
+                            <select id="gender" name="gender" class="form-control" required>
+                                <option value="" disabled selected>Select your gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-4 col-form-label">Password<span class="text-danger"></span></label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirm-password" class="col-sm-4 col-form-label">Confirm Password<span class="text-danger"></span></label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address" class="col-sm-4 col-form-label">Address<span class="text-danger">*</span></label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="address" name="address" placeholder="Enter your address" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-8 offset-sm-4">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
+
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -124,15 +90,126 @@
     <!-- JavaScript Libraries -->
     <?php include('partials/javascript.php') ?>
     <script>
-            document.getElementById("register-form").addEventListener("submit", function(event) {
-            // ở đây kiểm tra xem hai trường password có giống nhau không
-                var password = document.getElementById("password").value;
-                var passwordConfirm = document.getElementById("password-confirm").value;
-                if (password !== passwordConfirm) {
-                    alert("Hai trường password phải giống nhau!");
-                    event.preventDefault(); // ngăn chặn việc gửi form đi
-                }
-            });
+        $(document).ready(function() {
+        const form = document.querySelector('form');
+        const nameInput = document.querySelector('#name');
+        const emailInput = document.querySelector('#email');
+        const phoneInput = document.querySelector('#phone');
+        const passwordInput = document.querySelector('#password');
+        const confirmPasswordInput = document.querySelector('#confirm-password');
+        const addressInput = document.querySelector('#address');
+        let isValid = true;
+        form.addEventListener('submit', function(event) {
+            if (nameInput.value === '') {
+                event.preventDefault();
+                showError(nameInput, 'Please enter your full name.');
+                isValid = false;
+            } else {
+                showSuccess(nameInput);
+            }
+
+            if (emailInput.value === '') {
+                event.preventDefault();
+                showError(emailInput, 'Please enter your email address.');
+                isValid = false;
+            } else if (!isValidEmail(emailInput.value)) {
+                event.preventDefault();
+                showError(emailInput, 'Please enter a valid email address.');
+                isValid = false;
+            } else {
+                showSuccess(emailInput);
+            }
+
+            if (phoneInput.value !== '' && !isValidPhoneNumber(phoneInput.value)) {
+                event.preventDefault();
+                showError(phoneInput, 'Please enter a valid phone number.');
+                isValid = false;
+            } else {
+                showSuccess(phoneInput);
+            }
+
+            if (passwordInput.value === '') {
+                event.preventDefault();
+                showError(passwordInput, 'Please enter a password.');
+                isValid = false;
+            } else if (!isValidPassword(passwordInput.value)) {
+                event.preventDefault();
+                showError(passwordInput, 'Password must be at least 6 characters long.');
+                isValid = false;
+            } else {
+                showSuccess(passwordInput);
+            }
+
+            if (confirmPasswordInput.value === '') {
+                event.preventDefault();
+                showError(confirmPasswordInput, 'Please confirm your password.');
+                isValid = false;
+            } else if (passwordInput.value !== confirmPasswordInput.value) {
+                event.preventDefault();
+                showError(confirmPasswordInput, 'Passwords do not match.');
+                isValid = false;
+            } else {
+                showSuccess(confirmPasswordInput);
+            }
+
+            if (addressInput.value === '') {
+                event.preventDefault();
+                showError(addressInput, 'Please enter your address.');
+                isValid = false;
+            } else {
+                showSuccess(addressInput);
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            } else {
+                // Disable submit button after successful validation
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+            }
+        });
+
+        function showError(input, message) {
+            const formGroup = input.parentElement;
+            const errorDiv = formGroup.querySelector('.error');
+
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+
+            const error = document.createElement('div');
+            error.className = 'error';
+            error.innerText = message;
+
+            formGroup.appendChild(error);
+            formGroup.classList.add('has-error');
+        }
+
+        function showSuccess(input) {
+            const formGroup = input.parentElement;
+            const errorDiv = formGroup.querySelector('.error');
+
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+
+            formGroup.classList.remove('has-error');
+        }
+
+        function isValidEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function isValidPhoneNumber(phone) {
+            const regex = /^\d{10}$/;
+            return regex.test(phone);
+        }
+
+        function isValidPassword(password) {
+            return password.length >= 6;
+        }
+    });
     </script>
 </body>
 
