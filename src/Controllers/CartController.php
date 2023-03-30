@@ -10,7 +10,6 @@ class CartController extends BaseController
 {   
     
     public function showCartDetail(){
-
     }
     public function addCart()
     {
@@ -35,7 +34,6 @@ class CartController extends BaseController
                 $cart = $this->createCart($user_id);
                 $_SESSION['cart_id'] = $cart->id;
             }
-
             // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
 
             $cartDetail = CartDetail::findByCartIdProductId($cart_id,$data['product_id']);
@@ -80,6 +78,9 @@ class CartController extends BaseController
     {
         $cart = new Cart(['user_id' => $userId]);
         if ($cart->save()) {
+            render_view('cart', [
+                'cart' => Cart::all(),
+            ]);
         } else {
             render_view('error', ['message' => 'Failed to create cart']);
         }

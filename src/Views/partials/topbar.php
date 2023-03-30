@@ -60,6 +60,11 @@
                     <span class="badge" id="productCountCart">0</span>
                 </a>
             <?php endif ?>
+
+            <a href="/cart" class="btn border">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge" id="productCountCart">0</span>
+            </a>
         </div>
     </div>
 </div>

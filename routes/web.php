@@ -15,4 +15,6 @@ $router->get('/logout','App\Controllers\UserController@logout');
 $router->get('/login', 'App\Controllers\UserController@login');
 $router->post('/login', 'App\Controllers\UserController@signIn');
 
+$router->get('/order', 'App\Controllers\OrderController@index');
+$router->post('/proccess', 'App\Controllers\OrderController@process');
 

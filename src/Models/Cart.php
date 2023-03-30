@@ -20,7 +20,12 @@ class Cart
         }
         return $carts;
     }
-    
+    public static function detail()
+    {
+        
+        $details = [];
+        
+    }
 
     public function save()
     {
