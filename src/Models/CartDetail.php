@@ -128,4 +128,25 @@ class CartDetail
         }
         return null;
     }
+    public function count($cart_id)
+    {
+        $query = PDO()->prepare("select count(*) from cart_detail where cart_id = :cart_id");
+        $query->execute([
+            'cart_id' => $cart_id,
+        ]);
+        return $query;
+    }
+    public static function details($cart_id): array
+    {
+        $cartDetails = [];
+        $query = PDO()->prepare("select * from cart_detail where $cart_id = :cart_id");
+        $query->execute(['cart_id' => $cart_id,]);
+        while ($row = $query->fetch()) {
+            $cartDetail = new CartDetail();
+            $cartDetail->fillFromDb($row);
+            $cartDetails[] = $cartDetail;
+        }
+        return $cartDetails;
+    }
+    
 }

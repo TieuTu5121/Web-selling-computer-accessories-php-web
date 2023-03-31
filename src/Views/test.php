@@ -3,12 +3,12 @@ echo '<pre>';
 print_r($cart);
 echo '</pre>';
 echo '<pre>';
-print_r($user_id);
+print_r($user);
 echo '</pre>';
 echo '<pre>';
-print_r($product);
+print_r($products);
 echo '</pre>';
 echo '<pre>';
-print_r($cartDetail);
+print_r($details);
 echo '</pre>';
 ?>

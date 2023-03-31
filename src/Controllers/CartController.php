@@ -5,9 +5,28 @@ namespace App\Controllers;
 use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\Product;
+use App\Models\User;
 
 class CartController extends BaseController
 {   
+    public function index()
+    {   
+        if (!isset($_SESSION['user_id'])) {
+            // Nếu chưa đăng nhập, chuyển hướng sang trang login
+            redirect('/login');
+            exit;
+        }
+        $products = Product::all();
+        $user = User::auth();
+        $cart = Cart::findByUserId($user->id);
+        $details = CartDetail::details($cart->id);
+        render_view('test', [
+            'products' => $products,
+            'user' => $user,
+            'cart' => $cart,
+            'details' => $details,
+        ]);
+    }
     
     
     public function addCart()
@@ -81,6 +100,10 @@ class CartController extends BaseController
             
             redirect('/');
         
+    }
+    public function updateqty()
+    {
+        $id = $_POST['id'];
     }
     public function createCart($user_id)
     {

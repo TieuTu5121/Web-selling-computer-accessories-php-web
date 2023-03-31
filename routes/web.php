@@ -5,6 +5,7 @@ $router->get('/product/(\d+)', 'App\Controllers\ProductController@detail');
 
 // Cart route
 $router->post('/product/(\d+)', 'App\Controllers\CartController@addCart');
+$router->get('/cart', 'App\Controllers\CartController@index');
 
 
 
