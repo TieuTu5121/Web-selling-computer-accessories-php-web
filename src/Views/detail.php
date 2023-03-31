@@ -19,6 +19,7 @@
     /product/<?= $product->id ?>" method="POST" class="row px-xl-5">
         
         <input type="hidden" name="product_id" value="<?= $product->id ?>">
+        
         <div class="col-lg-5 pb-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner border">

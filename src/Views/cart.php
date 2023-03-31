@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody class="align-middle">
-                
+                <?php foreach($details as $item): ?>
                 <!-- Ham foreach -->
                 <tr class="align-middle">
                     <td class="align-middle cart_product">
@@ -40,7 +40,7 @@
                     </td>
                     <td class="align-middle cart_description">
                         <!-- href link toi san pham, h5 chua ten -->
-                        <h5><a href="/product/...">         </a></h5>
+                        <h5><a href="/product/..."></a></h5>
                     </td>
                     <td class="align-middle cart_price">
                         <!-- number_format chua price -->
@@ -49,7 +49,7 @@
                     <td class="align-middle cart_quantity">
                         <form action="/updateqty" method="POST">
                             
-                            <input type="hidden" value="<?= $item->id ?>" name="id">
+                            <input type="hidden" value="" name="id">
                             <div class="input-group product_quantity_button quantity mx-auto" style="width: 130px;">
                                 <div class="input-group-btn">
                                     <button type="button submit" name="update_quantity" class="btn btn-primary btn-minus" data-type="minus">
@@ -58,7 +58,7 @@
                                 </div>
                                 <!-- value chua quantity mua -->
                                 <input type="text" name="product_quantity" class="form-control bg-secondary text-center input-number product_quantity_input" 
-                                    value="                             " name="product_quantity">
+                                    value="<?= $item->product_quantity ?>                             " name="product_quantity">
                                 <div class="input-group-btn">
                                     <button type="button submit" name="update_quantity" class="btn btn-primary btn-plus" data-type="plus">
                                         <i class="fa fa-plus"></i>
@@ -78,9 +78,9 @@
                         <i class="fa fa-times"></i></button></a>
                     </td>
                 </tr>
-               
-
+                <?php endforeach ?>
             </tbody>
+            
         </table>
     </div>
     <div class="col-lg-4">
