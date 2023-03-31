@@ -5,9 +5,8 @@ class CartDetail
 {
     public int $id = -1;
     public int $cart_id;
-    public Product $product;
+    public int $product_id;
     public int $product_quantity = 0;
-
 
     public function __construct(array $data = [])
     {
@@ -35,8 +34,9 @@ class CartDetail
             $result = $query->execute([
                 'id' => $this->id,
                 'cart_id' => $this->cart_id,
-                'product_id' => $this->product->id,
+                'product_id' => $this->product_id,
                 'product_quantity' => $this->product_quantity,
+                
             ]);
         } else {
             $query = PDO()->prepare(
@@ -44,8 +44,9 @@ class CartDetail
                 values (:cart_id, :product_id, :product_quantity)');
             $result = $query->execute([
                 'cart_id' => $this->cart_id,
-                'product_id' => $this->product->id,
+                'product_id' => $this->product_id,
                 'product_quantity' => $this->product_quantity,
+                
             ]);
             if ($result) {
                 $this->id = PDO()->lastInsertId();
@@ -85,15 +86,17 @@ class CartDetail
     {
         $this->id = $row['id'];
         $this->cart_id = $row['cart_id'];
-        $this->product = Product::findById($row['product_id']);
+        $this->product_id = $row['product_id'];
         $this->product_quantity = $row['product_quantity'];
+        
         return $this;
     }
     public function fill(array $data)
     {
-        $this->cart_id = $data['cart_id'] ?? -1;
-        $this->product = $data['product'] ?? null;
+        $this->cart_id = $data['cart_id'] ?? 0;
+        $this->product_id = $data['product_id'] ?? 0;
         $this->product_quantity = $data['product_quantity'] ?? 0;
+       
         return $this;
     }
 
@@ -123,4 +126,14 @@ class CartDetail
         }
         return null;
     }
+
+    public function count($cart_id)
+    {
+        $query = PDO()->prepare("select count(*) from cart_detail where cart_id = :cart_id");
+        $query->execute([
+            'cart_id' => $cart_id,
+        ]);
+        return $query;
+    }
+
 }

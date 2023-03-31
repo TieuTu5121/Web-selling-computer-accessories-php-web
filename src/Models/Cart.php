@@ -5,6 +5,7 @@ namespace App\Models;
 class Cart
 {
     public int $id = -1;
+
     public int $user_id = -1;
     public function __construct(array $data = [])
     {
@@ -23,12 +24,7 @@ class Cart
         }
         return $carts;
     }
-    public static function detail()
-    {
-        
-        $details = [];
-        
-    }
+
 
     public function save()
     {
@@ -59,11 +55,21 @@ class Cart
         $query = PDO()->prepare('delete from carts where id = :id');
         return $query->execute(['id' => $this->id]);
     }
-
     public static function findById(int $id)
     {
         $query = PDO()->prepare('select * from carts where id = :id');
         $query->execute(['id' => $id]);
+        if ($row = $query->fetch()) {
+            $cart = new Cart();
+            $cart->fillFromDb($row);
+            return $cart;
+        }
+        return null;
+    }
+    public static function findByUserId(int $id)
+    {
+        $query = PDO()->prepare('select * from carts where user_id = :user_id');
+        $query->execute(['user_id' => $id]);
         if ($row = $query->fetch()) {
             $cart = new Cart();
             $cart->fillFromDb($row);
@@ -97,7 +103,8 @@ class Cart
         }
         return null;
     }
-
+    
+    
     
 
 }
