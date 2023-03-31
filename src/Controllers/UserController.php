@@ -96,10 +96,7 @@ class UserController extends BaseController
                 
 			} else {
 				// $_SESSION['message'] = 'Your email or password is incorrect.';
-				render_view('login', [
-					'products' => Product::all(),
-					'user' => '',
-				]);
+				redirect('/register');
 			}
         }
 	}
